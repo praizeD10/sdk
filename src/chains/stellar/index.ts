@@ -43,9 +43,8 @@ export {
   L,
 } from './scalar';
 export { bytesToHex, hexToBytes } from './utils';
-
-export { MemoryCache, IndexedDBCache, autoSelectCache } from './cache';
-export type { AnnouncementCache } from './cache';
+export { estimateFee, clearFeeCache } from './fee';
+export type { OpKind, FeeUrgency } from './fee';
 
 export {
   fetchAnnouncementsStream,
@@ -53,6 +52,9 @@ export {
   parseAnnouncementEvent,
 } from './announcements';
 export type { FetchAnnouncementsOptions } from './announcements';
+
+export { MemoryCache, IndexedDBCache, autoSelectCache } from './cache';
+export type { AnnouncementCache } from './cache';
 
 export {
   MAX_RPC_EVENT_FILTERS,
@@ -82,3 +84,15 @@ export type {
 
 export { buildStellarSwapAndStealth } from './swap';
 export type { BuildStellarSwapAndStealthOptions, SwapAndStealthResult } from './swap';
+
+export { buildPathStealthPayment, findStrictReceivePath } from './path-payment';
+export type {
+  BuildPathStealthPaymentOptions,
+  PathStealthPaymentResult,
+  FindStrictReceivePathOptions,
+  StrictReceivePathResult,
+} from './path-payment';
+
+export { encodeMemo, decodeMemo, extractMemoFromTransaction } from './memo';
+export type { MemoType, MemoValue, TypedMemo } from './memo';
+export { MemoValidationError, TEXT_MEMO_MAX_BYTES, HASH_MEMO_BYTES, ID_MEMO_MAX } from './memo';
