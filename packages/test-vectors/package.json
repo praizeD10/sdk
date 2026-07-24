@@ -1,0 +1,16 @@
+{
+  "name": "@wraith-protocol/test-vectors",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "On-chain fixture snapshots for SDK conformance testing",
+  "scripts": {
+    "fetch": "npx tsx scripts/fetch.ts"
+  },
+  "devDependencies": {
+    "@wraith-protocol/sdk": "file:../..",
+    "@stellar/stellar-sdk": "^13.1.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.0"
+  }
+}
