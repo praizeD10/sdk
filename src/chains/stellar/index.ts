@@ -82,3 +82,6 @@ export type {
 
 export { buildStellarSwapAndStealth } from './swap';
 export type { BuildStellarSwapAndStealthOptions, SwapAndStealthResult } from './swap';
+
+export { estimateFee, clearFeeCache } from './fee';
+export type { OperationKind, Urgency, FeeStats } from './fee';
