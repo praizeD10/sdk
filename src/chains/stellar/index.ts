@@ -59,6 +59,8 @@ export {
   L,
 } from './scalar';
 export { bytesToHex, hexToBytes } from './utils';
+export { estimateFee, clearFeeCache } from './fee';
+export type { OpKind, FeeUrgency } from './fee';
 /**
  * @internal
  */
