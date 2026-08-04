@@ -240,6 +240,9 @@ export function checkStealthAddress(ephemeralPubKey: Uint8Array, viewingKey: Uin
 export function clearAssetMetadataCache(): void;
 
 // @public
+export function clearFeeCache(): void;
+
+// @public
 export function computeAnnouncementViewTag(ephemeralPubKey: Uint8Array, viewingPubKey: Uint8Array): number;
 
 // @public
@@ -250,6 +253,9 @@ export function computeViewTag(sharedSecret: Uint8Array): number;
 
 // @public (undocumented)
 export function createHorizonClient(config: HorizonClientConfig): HorizonClient;
+
+// @public (undocumented)
+export function createRpcClient(config: RpcClientConfig): RpcClient;
 
 // @public
 export function decodeAnnouncementData(data: Uint8Array): {
@@ -301,6 +307,9 @@ export function encodeSymbolTopic(symbol: string): string;
 export function encodeU32Topic(value: number): string;
 
 // @public
+export async function estimateFee(opKind: OpKind, urgency?: FeeUrgency, horizonUrl?: string): Promise<string>;
+
+// @public
 export function extractMemoFromTransaction(tx: {
     memo: Memo | xdr.Memo;
 }): TypedMemo;
@@ -320,6 +329,9 @@ export interface FetchAnnouncementsOptions {
 
 // @public
 export function fetchAnnouncementsStream(chain?: string, sorobanUrlOrOpts?: string | FetchAnnouncementsOptions, maybeOpts?: FetchAnnouncementsOptions): AsyncGenerator<Announcement>;
+
+// @public
+export type FeeUrgency = 'low' | 'normal' | 'high';
 
 // @public
 export function findStrictReceivePath(options: FindStrictReceivePathOptions): Promise<StrictReceivePathResult>;
@@ -478,6 +490,9 @@ export const META_ADDRESS_PREFIX = "st:xlm:";
 // @public
 export type Network = 'testnet' | 'mainnet';
 
+// @public
+export type OpKind = 'payment' | 'create_account' | 'soroban';
+
 // Warning: (ae-internal-missing-underscore) The name "parseAnnouncementEvent" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
@@ -500,6 +515,43 @@ export function prepareStealthAccountForAsset(accountBalances: Array<{
 
 // @public
 export function pubKeyToStellarAddress(pubKeyBytes: Uint8Array): string;
+
+// @public (undocumented)
+export interface RpcClient {
+    getHealthyEndpoint(): string;
+    off(event: 'endpointFailover', listener: (detail: {
+        from: string;
+        to: string;
+        reason: string;
+    }) => void): void;
+    on(event: 'endpointFailover', listener: (detail: {
+        from: string;
+        to: string;
+        reason: string;
+    }) => void): void;
+    request<T = unknown>(method: string, path: string, body?: unknown): Promise<T>;
+}
+
+// @public (undocumented)
+export interface RpcClientConfig {
+    circuitBreaker?: {
+        cooldownMs: number;
+        failureThreshold: number;
+    };
+    endpoints: RpcEndpoint[];
+    fetchImpl?: typeof fetch;
+    healthCheckPath?: string;
+    retry?: {
+        baseDelayMs: number;
+        maxDelayMs: number;
+        maxRetries: number;
+    };
+}
+
+// @public (undocumented)
+export interface RpcEndpoint {
+    url: string;
+}
 
 // @public (undocumented)
 export class RetentionExceededError extends Error {
